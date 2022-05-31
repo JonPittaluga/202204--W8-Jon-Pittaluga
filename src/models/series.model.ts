@@ -29,3 +29,8 @@ export class SerieModel implements iSerieModel {
     this.emmies = emmies;
   }
 }
+
+export enum List {
+  watched = 'watched',
+  pending = 'pending',
+}
