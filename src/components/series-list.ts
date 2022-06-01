@@ -13,7 +13,8 @@ export class SeriesList extends Component {
   constructor(
     public selector: string,
     public group: List,
-    public changeScore: (score: number, id: number) => void
+    public changeScore: (score: number, id: number) => void,
+    public deleteSerie: (id: number) => void
   ) {
     super();
     this.render();
@@ -51,7 +52,8 @@ export class SeriesList extends Component {
           item.watched,
           item.score,
           item.emmies,
-          this.changeScore.bind(this)
+          this.changeScore.bind(this),
+          this.deleteSerie.bind(this)
         )
       );
     });
@@ -76,6 +78,3 @@ export class SeriesList extends Component {
     );
   }
 }
-
-// CREAR UNA FUNCIÓN EN EL PADRE - EL DE LA LÓGICA… DECLARO
-// AL CONSTRUCTOR DEL HIJO PASARLE UN PARÁMETRO… EJECTUTO

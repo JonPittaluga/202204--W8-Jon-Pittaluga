@@ -17,12 +17,18 @@ export class Main extends Component {
   render() {
     this.template = this.createHTMLTemplate();
     this.outerRender(this.selector);
+    this.deleteSerie();
     // TODO: Manage component… this.manageComponent()
   }
 
   changeScore(score: number = 0, id: number = 0) {
     console.log(`Here's the score: ${score},
 Here's the id: ${id}`);
+  }
+
+  deleteSerie(id?: number) {
+    console.log(`Connected delete serie method from main 
+    CLICKED ID: ${id}`);
   }
 
   createHTMLTemplate() {
@@ -33,14 +39,16 @@ Here's the id: ${id}`);
             new SeriesList(
               'section.series-pending',
               List.pending,
-              this.changeScore.bind(this)
+              this.changeScore.bind(this),
+              this.deleteSerie.bind(this)
             ).template
           }
             ${
               new SeriesList(
                 'section.series-watched',
                 List.watched,
-                this.changeScore.bind(this)
+                this.changeScore.bind(this),
+                this.deleteSerie.bind(this)
               ).template
             }
         </section>

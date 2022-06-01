@@ -14,10 +14,12 @@ export class SeriesItem extends Component implements SerieModel {
     public watched: boolean,
     public score: number,
     public emmies: number,
-    public changeScore: (score: number, id: number) => void
+    public changeScore: (score: number, id: number) => void,
+    public deleteSerie: (id: number) => void
   ) {
     super();
     this.template = this.createHTMLTemplate();
+    this.manageSeriesItem();
   }
 
   createHTMLTemplate() {
@@ -38,5 +40,16 @@ export class SeriesItem extends Component implements SerieModel {
 
         <i class="fas fa-times-circle icon--delete"></i>
       </li>`;
+  }
+
+  manageSeriesItem() {
+    document
+      .querySelectorAll('i.icon--delete')
+      .forEach((item) => item.addEventListener('click', this.handleDeletion));
+  }
+
+  handleDeletion() {
+    console.log(`${this.id} was clicked`);
+    this.deleteSerie(this.id);
   }
 }
