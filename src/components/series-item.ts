@@ -13,7 +13,8 @@ export class SeriesItem extends Component implements SerieModel {
     public poster: string,
     public watched: boolean,
     public score: number,
-    public emmies: number
+    public emmies: number,
+    public changeScore: (score: number, id: number) => void
   ) {
     super();
     this.template = this.createHTMLTemplate();
@@ -29,7 +30,10 @@ export class SeriesItem extends Component implements SerieModel {
         <h4 class="serie__title">${this.name}</h4>
         <p class="serie__info">${this.creator} (${this.year})</p>
         <ul class="score" data-id="${this.id}"> 
-          ${new Score(this.score, this.name).template}
+          ${
+            new Score(this.score, this.name, this.changeScore.bind(this))
+              .template
+          }
         </ul>
 
         <i class="fas fa-times-circle icon--delete"></i>

@@ -4,26 +4,19 @@ import { Component } from './abstract-component.js';
 import { seriesData } from '../models/series.data.js';
 
 export class SeriesList extends Component {
-  sectionTitle: string;
-  sectionInfo: string;
-  template: string = '';
-  series: any = []; // FOR STATE MANAGEMENT… BECAREFUL
-  seriesItems: any = [];
-  templateItem: any = '';
+  template: string = ''; // to export the final html template
+  templateItem: any = ''; // To generate
+  series: any = []; // to load the data
+  seriesItems: any = []; // to load the data without mutating series[]
   count: number = 3; // TODO: Add this dynamically
 
   constructor(
     public selector: string,
     public group: List,
-    public title: string,
-    public info: string,
-    public methodExample: () => void // no recibe
+    public changeScore: (score: number, id: number) => void
   ) {
     super();
-    this.sectionTitle = title;
-    this.sectionInfo = info;
     this.render();
-    this.manageComponent();
   }
 
   render() {
@@ -32,7 +25,7 @@ export class SeriesList extends Component {
     this.filterSeries();
     this.seriesItems = this.createSeriesTemplate();
     this.template = this.createHTMLTemplate();
-    this.methodExample();
+    // this.changeScore();
     super.render(this.selector);
   }
 
@@ -48,7 +41,7 @@ export class SeriesList extends Component {
 
   createSeriesTemplate() {
     this.series.forEach((item: iSerieModel) => {
-      this.seriesItems.push(
+      return this.seriesItems.push(
         new SeriesItem(
           item.id,
           item.name,
@@ -57,7 +50,8 @@ export class SeriesList extends Component {
           item.poster,
           item.watched,
           item.score,
-          item.emmies
+          item.emmies,
+          this.changeScore.bind(this)
         )
       );
     });
@@ -68,43 +62,18 @@ export class SeriesList extends Component {
 
   createHTMLTemplate() {
     return (
-      `<h3 class="subsection-title">${this.sectionTitle}</h3>
+      `<h3 class="subsection-title">${
+        this.group === 'watched' ? 'Watched series' : 'Pending series'
+      }</h3>
       <p class="info">${
         this.group === 'watched'
-          ? `You have  ${this.count} series watched`
-          : `You have  ${this.count} series pending`
+          ? `You have  ${this.series.length} series watched`
+          : `You have  ${this.series.length} series pending`
       } </p>
       <ul class="series-list">` +
       this.templateItem +
       '</ul>'
     );
-  }
-
-  manageComponent() {
-    // document.querySelectorAll('[role="button"]').forEach((button) => {
-    document.querySelectorAll('i.icon--score').forEach((button) => {
-      button.addEventListener('click', this.handlerScore.bind(this));
-    });
-    document.querySelectorAll('i.icon--delete').forEach((button) => {
-      button.addEventListener('click', this.handlerDelete.bind(this));
-    });
-  }
-
-  handlerScore(ev: Event) {
-    let newScore: any = <HTMLElement>ev.target;
-    newScore = newScore.title[0];
-    let serieId: any = <HTMLElement>ev.target;
-    serieId = serieId.closest('[data-id]').dataset.id as string;
-    console.log('NEW SCORE', newScore);
-    // this.score = newScore;
-    this.render();
-  }
-
-  handlerDelete(ev: Event) {
-    let serieId: any = <HTMLElement>ev.target;
-    serieId = serieId.previousElementSibling.dataset.id;
-    console.log('DELETE THIS ID', serieId);
-    this.render();
   }
 }
 

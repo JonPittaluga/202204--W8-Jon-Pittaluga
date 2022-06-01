@@ -11,17 +11,18 @@ export class MainContainer extends Component {
   constructor(public selector: string) {
     super();
     this.render();
-    // this.manageComponent()
+    this.changeScore();
   }
 
   render() {
     this.template = this.createHTMLTemplate();
     this.outerRender(this.selector);
-    // TODO: Manage component…
+    // TODO: Manage component… this.manageComponent()
   }
 
-  methodExample() {
-    console.log('this works');
+  changeScore(score: number = 0, id: number = 0) {
+    console.log(`Here's the score: ${score},
+Here's the id: ${id}`);
   }
 
   createHTMLTemplate() {
@@ -32,23 +33,17 @@ export class MainContainer extends Component {
             new SeriesList(
               'section.series-pending',
               List.pending,
-              'Pending series',
-              'You have FIXME SOON MATE series pending',
-              this.methodExample.bind(this)
+              this.changeScore.bind(this)
             ).template
           }
             ${
               new SeriesList(
                 'section.series-watched',
                 List.watched,
-                'Watched series',
-                `You have FIXME SOON MATE series watched`,
-                this.methodExample.bind(this)
+                this.changeScore.bind(this)
               ).template
             }
         </section>
     `;
   }
-
-  manageComponent() {}
 }
