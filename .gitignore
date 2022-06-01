@@ -1,6 +1,4 @@
-.notes.md
-filesfromthechallenge/
-*-lock.json
+notes.md
 
 # Logs
 logs
@@ -93,7 +91,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist
 
 # Gatsby files
 .cache/

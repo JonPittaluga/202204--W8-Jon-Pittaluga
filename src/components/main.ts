@@ -22,8 +22,7 @@ export class Main extends Component {
   }
 
   changeScore(score: number = 0, id: number = 0) {
-    console.log(`Here's the score: ${score},
-Here's the id: ${id}`);
+    console.log(`Here's the score: ${score}, Here's the id: ${id}`);
   }
 
   deleteSerie(id?: number) {
