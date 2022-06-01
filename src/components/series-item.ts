@@ -6,6 +6,7 @@ export class SeriesItem extends Component implements SerieModel {
   template: string = '';
 
   constructor(
+    public selector: string,
     public id: number,
     public name: string,
     public creator: string,
@@ -18,8 +19,15 @@ export class SeriesItem extends Component implements SerieModel {
     public deleteSerie: (id: number) => void
   ) {
     super();
-    this.template = this.createHTMLTemplate();
+    this.selector = selector;
+    this.render();
     this.manageSeriesItem();
+  }
+
+  render() {
+    this.template = this.createHTMLTemplate();
+    super.render(this.selector);
+    this.startChildComponents();
   }
 
   createHTMLTemplate() {
@@ -32,19 +40,20 @@ export class SeriesItem extends Component implements SerieModel {
         <h4 class="serie__title">${this.name}</h4>
         <p class="serie__info">${this.creator} (${this.year})</p>
         <ul class="score" data-id="${this.id}"> 
-          ${
-            new Score(this.score, this.name, this.changeScore.bind(this))
-              .template
-          }
         </ul>
-
         <i class="fas fa-times-circle icon--delete"></i>
       </li>`;
   }
 
+  startChildComponents() {
+    return `
+      ${new Score(this.score, 'score', this.changeScore.bind(this)).template}`;
+  }
+
   manageSeriesItem() {
+    // document.querySelector('.icon--delete').addEventListener('click', this.handleDeletion);
     document
-      .querySelectorAll('i.icon--delete')
+      .querySelectorAll('.icon--delete')
       .forEach((item) => item.addEventListener('click', this.handleDeletion));
   }
 

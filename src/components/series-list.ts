@@ -44,6 +44,7 @@ export class SeriesList extends Component {
     this.series.forEach((item: iSerieModel) => {
       return this.seriesItems.push(
         new SeriesItem(
+          'serie',
           item.id,
           item.name,
           item.creator,

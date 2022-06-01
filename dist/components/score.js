@@ -6,9 +6,13 @@ export class Score extends Component {
         this.selector = selector;
         this.changeScore = changeScore;
         this.template = '';
-        this.template = this.createHTMLTemplate();
+        this.render();
         this.eventManager();
         // this.manageComponent();
+    }
+    render() {
+        this.template = this.createHTMLTemplate();
+        super.render(`.${this.selector}`);
     }
     createHTMLTemplate() {
         return `
@@ -30,13 +34,6 @@ export class Score extends Component {
     `;
     }
     eventManager() {
-        // document
-        //   .querySelectorAll('li.score__star')
-        //   .forEach((item) =>
-        //     item.addEventListener('click', () =>
-        //       console.log('clicked a "i.icon--score"')
-        //     )
-        //   );
         document
             .querySelectorAll('li.score__star')
             .forEach((item) => item.addEventListener('click', this.handlerScore));
@@ -52,12 +49,13 @@ export class Score extends Component {
     // }
     handlerScore(ev) {
         console.log('clicked');
-        // let newScore: any = <HTMLElement>ev.target;
-        // newScore = +newScore.title[0];
-        // let serieId: any = <HTMLElement>ev.target;
-        // serieId = serieId.closest('[data-id]').dataset.id as number;
-        // console.log('NEW SCORE', newScore);
-        // this.changeScore(newScore, serieId);
+        let newScore = ev.target;
+        newScore = +newScore.title[0];
+        let serieId = ev.target;
+        serieId = serieId.closest('[data-id]').dataset.id;
+        console.log('newScore', newScore);
+        console.log('serieId', serieId);
+        this.changeScore(newScore, serieId);
     }
 }
 //# sourceMappingURL=score.js.map

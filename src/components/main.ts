@@ -17,8 +17,8 @@ export class Main extends Component {
   render() {
     this.template = this.createHTMLTemplate();
     this.outerRender(this.selector);
-    this.deleteSerie();
-    // TODO: Manage component… this.manageComponent()
+    this.startChildComponents();
+    // this.deleteSerie();
   }
 
   changeScore(score: number = 0, id: number = 0) {
@@ -34,23 +34,29 @@ export class Main extends Component {
     return `
         <section class="series">
           <h2 class="section-title">${this.sectionTitle}</h2>
-          ${
-            new SeriesList(
-              'section.series-pending',
-              List.pending,
-              this.changeScore.bind(this),
-              this.deleteSerie.bind(this)
-            ).template
-          }
-            ${
-              new SeriesList(
-                'section.series-watched',
-                List.watched,
-                this.changeScore.bind(this),
-                this.deleteSerie.bind(this)
-              ).template
-            }
+          <section class="series-pending"></section>
+          <section class="series-watched"></section>
         </section>
+    `;
+  }
+  startChildComponents() {
+    return `
+      ${
+        new SeriesList(
+          'section.series-pending',
+          List.pending,
+          this.changeScore.bind(this),
+          this.deleteSerie.bind(this)
+        ).template
+      }
+      ${
+        new SeriesList(
+          'section.series-watched',
+          List.watched,
+          this.changeScore.bind(this),
+          this.deleteSerie.bind(this)
+        ).template
+      }
     `;
   }
 }
