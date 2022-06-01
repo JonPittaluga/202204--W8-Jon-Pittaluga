@@ -2,7 +2,7 @@ import { Component } from './abstract-component.js';
 import { SeriesList } from './series-list.js';
 import { List } from '../models/series.model.js';
 
-export class MainContainer extends Component {
+export class Main extends Component {
   sectionTitle: string = 'Series list';
   template: string = '';
   sectionSeriesPending: object = {};
