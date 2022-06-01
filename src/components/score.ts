@@ -16,10 +16,13 @@ export class Score extends Component {
 
   render() {
     this.template = this.createHTMLTemplate();
-    super.render(`.${this.selector}`);
+    super.render(`${this.selector}`);
   }
 
   createHTMLTemplate() {
+    let count: number = 0;
+    count++;
+    console.log('count', count);
     return `
         <li class="score__star">
           <i class="icon--score ${

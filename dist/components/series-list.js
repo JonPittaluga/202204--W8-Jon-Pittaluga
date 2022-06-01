@@ -31,7 +31,7 @@ export class SeriesList extends Component {
     }
     createSeriesTemplate() {
         this.series.forEach((item) => {
-            return this.seriesItems.push(new SeriesItem('serie', item.id, item.name, item.creator, item.year, item.poster, item.watched, item.score, item.emmies, this.changeScore.bind(this), this.deleteSerie.bind(this)));
+            return this.seriesItems.push(new SeriesItem('caca de vaca', item.id, item.name, item.creator, item.year, item.poster, item.watched, item.score, item.emmies, this.changeScore.bind(this), this.deleteSerie.bind(this)));
         });
         this.seriesItems.forEach((card) => {
             this.templateItem += card.template;

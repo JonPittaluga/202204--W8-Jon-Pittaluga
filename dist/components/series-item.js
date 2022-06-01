@@ -40,7 +40,9 @@ export class SeriesItem extends Component {
     }
     startChildComponents() {
         return `
-      ${new Score(this.score, 'score', this.changeScore.bind(this)).template}`;
+      ${new Score(this.score, 
+        // `[data-id="${this.id}"]`,
+        `.score`, this.changeScore.bind(this)).template}`;
     }
     manageSeriesItem() {
         // document.querySelector('.icon--delete').addEventListener('click', this.handleDeletion);

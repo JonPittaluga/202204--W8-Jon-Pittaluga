@@ -47,7 +47,14 @@ export class SeriesItem extends Component implements SerieModel {
 
   startChildComponents() {
     return `
-      ${new Score(this.score, 'score', this.changeScore.bind(this)).template}`;
+      ${
+        new Score(
+          this.score,
+          // `[data-id="${this.id}"]`,
+          `.score`,
+          this.changeScore.bind(this)
+        ).template
+      }`;
   }
 
   manageSeriesItem() {
