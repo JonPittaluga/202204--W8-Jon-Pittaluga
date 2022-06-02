@@ -8,16 +8,12 @@ export class Score extends Component {
         this.template = '';
         this.render();
         this.eventManager();
-        // this.manageComponent();
     }
     render() {
         this.template = this.createHTMLTemplate();
         super.render(`${this.selector}`);
     }
     createHTMLTemplate() {
-        let count = 0;
-        count++;
-        console.log('count', count);
         return `
         <li class="score__star">
           <i class="icon--score ${this.score < 1 ? 'far' : 'fas'} fa-star" title="1/5"></i>
@@ -41,15 +37,6 @@ export class Score extends Component {
             .querySelectorAll('li.score__star')
             .forEach((item) => item.addEventListener('click', this.handlerScore));
     }
-    // manageComponent() {
-    //   document.querySelectorAll('i.icon--score').forEach((button) => {
-    //     // document.querySelectorAll('.icon--score').forEach((button) => {
-    //     button.addEventListener('click', this.handlerScore.bind(this));
-    //   });
-    //   // document.querySelectorAll('i.icon--delete').forEach((button) => {
-    //   //   button.addEventListener('click', this.handlerDelete.bind(this));
-    //   // });
-    // }
     handlerScore(ev) {
         console.log('clicked');
         let newScore = ev.target;

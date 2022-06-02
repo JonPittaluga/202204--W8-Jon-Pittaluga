@@ -11,7 +11,6 @@ export class Score extends Component {
     super();
     this.render();
     this.eventManager();
-    // this.manageComponent();
   }
 
   render() {
@@ -20,9 +19,6 @@ export class Score extends Component {
   }
 
   createHTMLTemplate() {
-    let count: number = 0;
-    count++;
-    console.log('count', count);
     return `
         <li class="score__star">
           <i class="icon--score ${
@@ -58,32 +54,21 @@ export class Score extends Component {
       .forEach((item) => item.addEventListener('click', this.handlerScore));
   }
 
-  // manageComponent() {
-  //   document.querySelectorAll('i.icon--score').forEach((button) => {
-  //     // document.querySelectorAll('.icon--score').forEach((button) => {
-  //     button.addEventListener('click', this.handlerScore.bind(this));
-  //   });
-
-  //   // document.querySelectorAll('i.icon--delete').forEach((button) => {
-  //   //   button.addEventListener('click', this.handlerDelete.bind(this));
-  //   // });
-  // }
-
   handlerScore(ev: Event) {
     console.log('clicked');
+
     let newScore: any = <HTMLElement>ev.target;
+
     newScore = +newScore.title[0];
+
     let serieId: any = <HTMLElement>ev.target;
+
     serieId = serieId.closest('[data-id]').dataset.id as number;
+
     console.log('newScore', newScore);
+
     console.log('serieId', serieId);
+
     this.changeScore(newScore, serieId);
   }
-
-  // handlerDelete(ev: Event) {
-  //   let serieId: any = <HTMLElement>ev.target;
-  //   serieId = serieId.previousElementSibling.dataset.id;
-  //   console.log('DELETE THIS ID', serieId);
-  //   this.render();
-  // }
 }

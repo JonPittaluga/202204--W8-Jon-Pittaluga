@@ -39,6 +39,7 @@ export class Main extends Component {
         </section>
     `;
   }
+
   startChildComponents() {
     return `
       ${

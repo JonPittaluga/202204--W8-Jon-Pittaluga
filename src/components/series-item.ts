@@ -20,18 +20,26 @@ export class SeriesItem extends Component implements SerieModel {
   ) {
     super();
     this.selector = selector;
-    this.render();
+    this.addRender();
     this.manageSeriesItem();
   }
 
+  addRender() {
+    this.template = this.createHTMLTemplate();
+    super.addRender(this.selector);
+    this.startChildComponents();
+  }
+
   render() {
+    //console.log(document.querySelector(this.selector));
     this.template = this.createHTMLTemplate();
     super.render(this.selector);
+    //console.log(document.querySelector(`.score[data-id="${this.id}"]`));
     this.startChildComponents();
   }
 
   createHTMLTemplate() {
-    return `<li class="serie">
+    return `<li class="serie" data-id="${this.id}">
         <img
           class="serie__poster"
           src="${this.poster}"
@@ -46,22 +54,25 @@ export class SeriesItem extends Component implements SerieModel {
   }
 
   startChildComponents() {
-    return `
-      ${
-        new Score(
-          this.score,
-          // `[data-id="${this.id}"]`,
-          `.score`,
-          this.changeScore.bind(this)
-        ).template
-      }`;
+    new Score(
+      this.score,
+      `.score[data-id="${this.id}"]`,
+      this.changeScore.bind(this)
+    );
   }
 
   manageSeriesItem() {
-    // document.querySelector('.icon--delete').addEventListener('click', this.handleDeletion);
-    document
-      .querySelectorAll('.icon--delete')
-      .forEach((item) => item.addEventListener('click', this.handleDeletion));
+    const element = document.querySelector(
+      `.serie[data-id="${this.id}"] .icon--delete`
+    );
+
+    if (element) {
+      console.log(element);
+      element.addEventListener('click', () => {
+        console.log('3');
+      });
+      console.log('2');
+    }
   }
 
   handleDeletion() {

@@ -24,10 +24,10 @@ export class SeriesList extends Component {
     this.series = seriesData;
     this.seriesItems = [];
     this.filterSeries();
-    this.seriesItems = this.createSeriesTemplate();
     this.template = this.createHTMLTemplate();
     // this.changeScore();
     super.render(this.selector);
+    this.seriesItems = this.createSeriesTemplate();
   }
 
   filterSeries() {
@@ -41,10 +41,15 @@ export class SeriesList extends Component {
   }
 
   createSeriesTemplate() {
+    const list = document.querySelector(this.selector + ' .series-list');
+    if (list) {
+      list.innerHTML = '';
+    }
+
     this.series.forEach((item: iSerieModel) => {
       return this.seriesItems.push(
         new SeriesItem(
-          'caca de vaca',
+          this.selector + ' .series-list',
           item.id,
           item.name,
           item.creator,
@@ -58,24 +63,17 @@ export class SeriesList extends Component {
         )
       );
     });
-    this.seriesItems.forEach((card: { template: any }) => {
-      this.templateItem += card.template;
-    });
   }
 
   createHTMLTemplate() {
-    return (
-      `<h3 class="subsection-title">${
-        this.group === 'watched' ? 'Watched series' : 'Pending series'
-      }</h3>
+    return `<h3 class="subsection-title">${
+      this.group === 'watched' ? 'Watched series' : 'Pending series'
+    }</h3>
       <p class="info">${
         this.group === 'watched'
           ? `You have  ${this.series.length} series watched`
           : `You have  ${this.series.length} series pending`
       } </p>
-      <ul class="series-list">` +
-      this.templateItem +
-      '</ul>'
-    );
+      <ul class="series-list"></ul>`;
   }
 }
